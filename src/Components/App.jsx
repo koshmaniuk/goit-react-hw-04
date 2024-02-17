@@ -1,69 +1,47 @@
-import { useState } from 'react';
-import './App.css';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ArticleList } from './ArticleList.jsx';
-import { fetchArticlesWithTopic } from '../articles-api.js';
-import { SearchForm } from './SearchForm.jsx';
-import { Loader } from './Loader.jsx';
-import { Error } from './Error.jsx';
+import './App.css';
+import { SearchForm } from './SearchForm';
+import { PictureList } from './PictureList/PictureList';
+import { Loader } from './Loader';
 
 const App = () => {
-  const [articles, setArticles] = useState([]);
+  const [pictures, setPictures] = useState([]);
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const handleSearch = async topic => {
-    try {
-      setArticles([]);
-      setError(false);
-      setLoading(true);
-      const data = await fetchArticlesWithTopic(topic);
-      setArticles(data);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
+  const render = newQuery => {
+    setQuery(newQuery);
   };
+
+  useEffect(() => {
+    if (query === '') {
+      return;
+    }
+    async function fetchPictures() {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://api.unsplash.com/search/photos?client_id=OO89Zfi4kDKEfWFRqQ8z4WPkYkmci1HP19luoFHQbCk&query=${query}&page=1`
+        );
+        setPictures(response.data.results);
+        setLoading(false);
+      } catch (error) {
+        console.log('error');
+      } finally {
+        console.log('done');
+      }
+    }
+    fetchPictures();
+  }, [query]);
 
   return (
     <div>
-      <SearchForm onSearch={handleSearch} />
+      <SearchForm onSearch={render} />
       {loading && <Loader />}
-      {error && <Error />}
-      {articles.length > 0 && <ArticleList items={articles} />}
+      {pictures.length > 0 && <PictureList items={pictures} />}
     </div>
   );
 };
-
-// const App = () => {
-//   const [articles, setArticles] = useState([]);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(false);
-
-//   useEffect(() => {
-//     async function fetchArticles() {
-//       try {
-//         setLoading(true);
-//         const data = await fetchArticlesWithTopic('react');
-//         setArticles(data);
-//       } catch (error) {
-//         setError(true);
-//       } finally {
-//         setLoading(false);
-//       }
-//     }
-
-//     fetchArticles();
-//   }, []);
-
-//   return (
-//     <div>
-//       {loading && <p>Loading data, please wait...</p>}
-//       {error && <p>Whoops, something went wrong! Please try reloading this page!</p>}
-//       {articles.length > 0 && <ArticleList items={articles} />}
-//     </div>
-//   );
-// };
 
 export default App;

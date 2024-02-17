@@ -8,7 +8,7 @@ export const SearchForm = ({ onSearch }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" name="topic" placeholder="Search articles..." />
+      <input type="text" name="topic" placeholder="Search pictures..." />
       <button>Search</button>
     </form>
   );
