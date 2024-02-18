@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import './App.css';
-import { SearchForm } from './SearchForm';
-import { PictureList } from './PictureList/PictureList';
+import { SearchBar } from './SearchBar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader';
 import { Error } from './Error';
 import { NoResults } from './NoResults';
 import { fetchPicturesByName } from '../articles-api';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const [pictures, setPictures] = useState([]);
@@ -14,6 +14,7 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [noRes, setNoRes] = useState(false);
   const render = newQuery => {
     setQuery(`${Date.now()}/${newQuery}`);
     setPictures([]);
@@ -28,13 +29,12 @@ const App = () => {
       try {
         setLoading(true);
         setError(false);
-        // const response = await axios.get(
-        //   `https://api.unsplash.com/search/photos?client_id=OO89Zfi4kDKEfWFRqQ8z4WPkYkmci1HP19luoFHQbCk&query=${query.split(
-        //     '/'[1]
-        //   )}&page=${page}&per_page=12`
-        // );
+        setNoRes(false);
         const fetchedPictures = await fetchPicturesByName(query.split('/'[1]), page);
         setPictures(prevPictures => [...prevPictures, ...fetchedPictures]);
+        if (fetchedPictures.length === 0) {
+          setNoRes(true);
+        }
         setLoading(false);
       } catch (error) {
         setError(true);
@@ -50,11 +50,13 @@ const App = () => {
   };
   return (
     <div>
-      <SearchForm onSearch={render} />
+      <SearchBar onSearch={render} />
       {error && <Error />}
-      {pictures.length > 0 && <PictureList items={pictures} />}
+      {noRes && <NoResults />}
+      {pictures.length > 0 && <ImageGallery items={pictures} />}
       {loading && <Loader />}
       {pictures.length > 0 && !loading && <button onClick={onLoadMore}>Load more</button>}
+      <Toaster />
     </div>
   );
 };
