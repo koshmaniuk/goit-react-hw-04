@@ -1,4 +1,7 @@
 import toast from 'react-hot-toast';
+import css from './SearchBar.module.css';
+import { MdImageSearch } from 'react-icons/md';
+
 export const SearchBar = ({ onSearch }) => {
   const handleSubmit = event => {
     const form = event.target;
@@ -12,16 +15,19 @@ export const SearchBar = ({ onSearch }) => {
     form.reset();
   };
   return (
-    <header>
-      <form onSubmit={handleSubmit}>
+    <header className={css.header}>
+      <form onSubmit={handleSubmit} className={css.searchForm}>
+        <button type="submit" className={css.searchBtn}>
+          <MdImageSearch size="25px" />
+        </button>
         <input
           type="text"
           autoComplete="off"
           autoFocus
           name="topic"
           placeholder="Search images and photos"
+          className={css.inputField}
         />
-        <button type="submit">Search</button>
       </form>
     </header>
   );

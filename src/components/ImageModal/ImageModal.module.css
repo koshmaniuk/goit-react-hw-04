@@ -1,0 +1,11 @@
+.modalContainer {
+  padding: 0;
+}
+
+.image {
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+

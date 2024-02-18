@@ -3,9 +3,9 @@ import css from './ImageGallery.module.css';
 export const ImageGallery = ({ items }) => {
   return (
     <ul className={css.pictureListContainer}>
-      {items.map(({ urls, id }) => (
+      {items.map(({ urls, id, description }) => (
         <li key={id}>
-          <ImageCard pictureUrl={urls} />
+          <ImageCard imageUrls={urls} imageDescr={description} />
         </li>
       ))}
     </ul>

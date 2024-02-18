@@ -1,5 +1,10 @@
 .cardPicture {
-  width: 250px;
-  height: 250px;
+  width: 365px;
+  height: 210px;
   object-fit: cover;
+}
+
+.cardPicture:hover {
+  transform: scale(1.03);
+  transition: transform 0.5s;
 }

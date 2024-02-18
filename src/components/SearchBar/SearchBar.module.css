@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(30, 204, 215, 1) 0%, rgba(0, 123, 255, 1) 100%);
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.inputField {
+  height: 35px;
+  width: 350px;
+  padding-left: 45px;
+  border-radius: 5px;
+  border: transparent;
+}
+.inputField:focus {
+  outline: transparent;
+}
+
+.searchBtn {
+  background-color: transparent;
+  position: absolute;
+  left: 5px;
+  outline: transparent;
+}

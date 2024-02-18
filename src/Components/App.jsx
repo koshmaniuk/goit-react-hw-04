@@ -46,11 +46,8 @@ const App = () => {
     fetchPictures();
   }, [query, page]);
 
-  // const onLoadMore = () => {
-  //   setPage(page + 1);
-  // };
   return (
-    <div>
+    <div className="mainContainer">
       <SearchBar onSearch={render} />
       {error && <Error />}
       {noRes && <NoResultError />}

@@ -1,0 +1,16 @@
+.LoadMoreBtn {
+  background: linear-gradient(90deg, rgba(30, 204, 215, 1) 0%, rgba(0, 123, 255, 1) 100%);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.LoadMoreBtn:hover {
+  background: linear-gradient(270deg, rgba(30, 204, 215, 1) 0%, rgba(0, 123, 255, 1) 100%);
+}
