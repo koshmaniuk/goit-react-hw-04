@@ -1,3 +1,5 @@
-export const NoResultError = () => {
+const NoResultError = () => {
   return <p>No results</p>;
 };
+
+export default NoResultError;

@@ -2,7 +2,7 @@ import toast from 'react-hot-toast';
 import css from './SearchBar.module.css';
 import { MdImageSearch } from 'react-icons/md';
 
-export const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch }) => {
   const handleSubmit = event => {
     const form = event.target;
     const topic = form.elements.topic.value;
@@ -32,3 +32,5 @@ export const SearchBar = ({ onSearch }) => {
     </header>
   );
 };
+
+export default SearchBar;

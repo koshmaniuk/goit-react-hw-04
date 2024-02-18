@@ -18,7 +18,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export const ImageModal = ({ isOpen, onClose, image, descr }) => {
+const ImageModal = ({ isOpen, onClose, image, descr }) => {
   return (
     <div className={css.modalContainer}>
       <Modal isOpen={isOpen} style={customStyles} onRequestClose={() => onClose()}>
@@ -28,4 +28,4 @@ export const ImageModal = ({ isOpen, onClose, image, descr }) => {
   );
 };
 
-//
+export default ImageModal;

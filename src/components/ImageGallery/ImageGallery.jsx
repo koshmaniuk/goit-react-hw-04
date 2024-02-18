@@ -1,6 +1,6 @@
-import { ImageCard } from '../ImageCard/ImageCard';
+import ImageCard from '../ImageCard/ImageCard';
 import css from './ImageGallery.module.css';
-export const ImageGallery = ({ items }) => {
+const ImageGallery = ({ items }) => {
   return (
     <ul className={css.pictureListContainer}>
       {items.map(({ urls, id, description }) => (
@@ -11,3 +11,5 @@ export const ImageGallery = ({ items }) => {
     </ul>
   );
 };
+
+export default ImageGallery;

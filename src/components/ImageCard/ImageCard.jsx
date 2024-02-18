@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { ImageModal } from '../ImageModal/ImageModal';
+import ImageModal from '../ImageModal/ImageModal';
 import css from './ImageCard.module.css';
 
-export const ImageCard = ({ imageUrls, imageDescr }) => {
+const ImageCard = ({ imageUrls, imageDescr }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
     <div>
@@ -23,3 +23,5 @@ export const ImageCard = ({ imageUrls, imageDescr }) => {
     </div>
   );
 };
+
+export default ImageCard;

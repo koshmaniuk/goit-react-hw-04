@@ -1,14 +1,20 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import css from './LoadrMoreBtn.module.css';
-export const LoadMoreBtn = ({ page, setPage }) => {
-  const div = useRef(null);
+const LoadMoreBtn = ({ page, setPage }) => {
+  const div = useRef();
   const handleClick = () => {
     setPage(page + 1);
-    div.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
+
+  useEffect(() => {
+    div.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [page]);
+
   return (
     <button onClick={handleClick} className={css.LoadMoreBtn} ref={div}>
       Load more
     </button>
   );
 };
+
+export default LoadMoreBtn;
