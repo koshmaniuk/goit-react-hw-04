@@ -15,9 +15,9 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [noRes, setNoRes] = useState(false);
+  const [noResult, setNoResult] = useState(false);
 
-  const render = newQuery => {
+  const imageRequest = newQuery => {
     setQuery(`${Date.now()}/${newQuery}`);
     setImages([]);
     setPage(1);
@@ -31,11 +31,11 @@ const App = () => {
       try {
         setLoading(true);
         setError(false);
-        setNoRes(false);
+        setNoResult(false);
         const fetchedImages = await fetchImagesByName(query.split('/'[1]), page);
         setImages(prevImages => [...prevImages, ...fetchedImages]);
         if (fetchedImages.length === 0) {
-          setNoRes(true);
+          setNoResult(true);
         }
         setLoading(false);
       } catch (error) {
@@ -49,9 +49,9 @@ const App = () => {
 
   return (
     <div className="mainContainer">
-      <SearchBar onSearch={render} />
+      <SearchBar onSubmit={imageRequest} />
       {error && <ErrorMessage />}
-      {noRes && <NoResultError />}
+      {noResult && <NoResultError />}
       {images.length > 0 && <ImageGallery items={images} />}
       {loading && <Loader />}
       {images.length > 0 && !loading && <LoadMoreBtn page={page} setPage={setPage} />}

@@ -2,7 +2,7 @@ import toast from 'react-hot-toast';
 import css from './SearchBar.module.css';
 import { MdImageSearch } from 'react-icons/md';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSubmit }) => {
   const handleSubmit = event => {
     const form = event.target;
     const topic = form.elements.topic.value;
@@ -11,9 +11,10 @@ const SearchBar = ({ onSearch }) => {
       return toast.error('The input field is empty');
     }
     event.preventDefault();
-    onSearch(topic);
+    onSubmit(topic);
     form.reset();
   };
+
   return (
     <header className={css.header}>
       <form onSubmit={handleSubmit} className={css.searchForm}>

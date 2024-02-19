@@ -18,11 +18,19 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ isOpen, onClose, image, descr }) => {
+const ImageModal = ({ isOpen, onClose, image, imageAltDescr, author, likes }) => {
   return (
     <div className={css.modalContainer}>
       <Modal isOpen={isOpen} style={customStyles} onRequestClose={() => onClose()}>
-        <img src={image} alt={descr} className={css.image} />
+        <img src={image} alt={imageAltDescr} className={css.image} />
+        <div className={css.infoContainer}>
+          <p>
+            Author: <span className={css.info}>{author.name}</span>
+          </p>
+          <p>
+            Likes: <span className={css.info}>{likes}</span>
+          </p>
+        </div>
       </Modal>
     </div>
   );
