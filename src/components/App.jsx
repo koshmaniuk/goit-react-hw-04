@@ -37,6 +37,7 @@ const App = () => {
         setNoResult(false);
         const fetchedImages = await fetchImagesByName(query.split('/')[1], page);
         setImages(prevImages => [...prevImages, ...fetchedImages]);
+
         if (fetchedImages.length === 0) {
           setNoResult(true);
         }
@@ -71,16 +72,16 @@ const App = () => {
       {images.length > 0 && <ImageGallery items={images} onOpen={openModal} />}
       {loading && <Loader />}
       {images.length > 0 && !loading && <LoadMoreBtn onClick={onLoadMore} />}
-      {modalIsOpen && (
-        <ImageModal
-          isOpen={modalIsOpen}
-          imageSrc={currentImgCard.src}
-          imageAlt={currentImgCard.alt}
-          author={currentImgCard.author}
-          likes={currentImgCard.likes}
-          onClose={closeModal}
-        />
-      )}
+
+      <ImageModal
+        isOpen={modalIsOpen}
+        imageSrc={currentImgCard.src}
+        imageAlt={currentImgCard.alt}
+        author={currentImgCard.author}
+        likes={currentImgCard.likes}
+        onClose={closeModal}
+      />
+
       <Toaster />
     </div>
   );
