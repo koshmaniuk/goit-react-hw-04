@@ -9,6 +9,8 @@ import ErrorMessage from './ErrorMessage/ErrorMessage';
 import NoResultError from './NoResultError/NoResultError';
 import './App.css';
 
+import ImageModal from './ImageModal/ImageModal';
+
 const App = () => {
   const [images, setImages] = useState([]);
   const [query, setQuery] = useState('');
@@ -16,9 +18,12 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [noResult, setNoResult] = useState(false);
+  const [currentImgCard, setCurrentImgCard] = useState({ src: '', likes: '', author: '', alt: '' });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const imageRequest = newQuery => {
     setQuery(`${Date.now()}/${newQuery}`);
+    console.log(query);
     setImages([]);
     setPage(1);
   };
@@ -47,14 +52,30 @@ const App = () => {
     fetchImages();
   }, [query, page]);
 
+  const openModal = cardInfo => {
+    console.log(cardInfo);
+    setCurrentImgCard(cardInfo);
+    setModalIsOpen(true);
+  };
+
   return (
     <div className="mainContainer">
       <SearchBar onSubmit={imageRequest} />
       {error && <ErrorMessage />}
       {noResult && <NoResultError />}
-      {images.length > 0 && <ImageGallery items={images} />}
+      {images.length > 0 && <ImageGallery items={images} onOpen={openModal} />}
       {loading && <Loader />}
       {images.length > 0 && !loading && <LoadMoreBtn page={page} setPage={setPage} />}
+      {modalIsOpen && (
+        <ImageModal
+          isOpen={modalIsOpen}
+          image={currentImgCard.src.regular}
+          imageAltDescr={currentImgCard.alt}
+          author={currentImgCard.author}
+          likes={currentImgCard.likes}
+          onClose={() => setModalIsOpen(false)}
+        />
+      )}
       <Toaster />
     </div>
   );

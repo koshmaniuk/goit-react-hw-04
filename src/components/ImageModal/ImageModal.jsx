@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import css from './ImageModal.module.css';
+
 const customStyles = {
   content: {
     border: 'none',
@@ -18,7 +19,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ isOpen, onClose, image, imageAltDescr, author, likes }) => {
+const ImageModal = ({ isOpen, image, imageAltDescr, author, likes, onClose }) => {
   return (
     <div className={css.modalContainer}>
       <Modal isOpen={isOpen} style={customStyles} onRequestClose={() => onClose()}>
