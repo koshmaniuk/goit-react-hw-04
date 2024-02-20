@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import css from './ImageCard.module.css';
 
-const ImageCard = ({ imageUrls, imageAltDescr, author, likes }) => {
+const ImageCard = ({ imageSrc, imageAlt }) => {
   return (
     <div>
-      <img src={imageUrls.small} className={css.cardPicture} alt={imageAltDescr} />
+      <img src={imageSrc} alt={imageAlt} className={css.cardPicture} />
     </div>
   );
 };

@@ -4,12 +4,12 @@ import css from './ImageGallery.module.css';
 const ImageGallery = ({ items, onOpen }) => {
   return (
     <ul className={css.pictureListContainer}>
-      {items.map(({ urls, id, alt_description, user, likes }) => (
+      {items.map(({ urls: { small, regular }, id, alt_description, user: { name }, likes }) => (
         <li
           key={id}
-          onClick={() => onOpen({ src: urls, likes: likes, author: user, alt: alt_description })}
+          onClick={() => onOpen({ src: regular, likes: likes, author: name, alt: alt_description })}
         >
-          <ImageCard imageUrls={urls} imageAltDescr={alt_description} />
+          <ImageCard imageSrc={small} imageAlt={alt_description} />
         </li>
       ))}
     </ul>

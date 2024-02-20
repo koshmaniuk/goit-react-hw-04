@@ -3,6 +3,7 @@ import css from './ImageModal.module.css';
 
 const customStyles = {
   content: {
+    height: '1100px',
     border: 'none',
     padding: '0',
     top: '50%',
@@ -19,14 +20,19 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ isOpen, image, imageAltDescr, author, likes, onClose }) => {
+const ImageModal = ({ isOpen, imageSrc, imageAlt, author, likes, onClose }) => {
   return (
     <div className={css.modalContainer}>
-      <Modal isOpen={isOpen} style={customStyles} onRequestClose={() => onClose()}>
-        <img src={image} alt={imageAltDescr} className={css.image} />
+      <Modal
+        isOpen={isOpen}
+        style={customStyles}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={() => onClose()}
+      >
+        <img src={imageSrc} alt={imageAlt} className={css.image} />
         <div className={css.infoContainer}>
           <p>
-            Author: <span className={css.info}>{author.name}</span>
+            Author: <span className={css.info}>{author}</span>
           </p>
           <p>
             Likes: <span className={css.info}>{likes}</span>

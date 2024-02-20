@@ -7,9 +7,8 @@ import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import NoResultError from './NoResultError/NoResultError';
-import './App.css';
-
 import ImageModal from './ImageModal/ImageModal';
+import './App.css';
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -21,9 +20,8 @@ const App = () => {
   const [currentImgCard, setCurrentImgCard] = useState({ src: '', likes: '', author: '', alt: '' });
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const imageRequest = newQuery => {
+  const handleSearchSubmit = newQuery => {
     setQuery(`${Date.now()}/${newQuery}`);
-    console.log(query);
     setImages([]);
     setPage(1);
   };
@@ -37,7 +35,7 @@ const App = () => {
         setLoading(true);
         setError(false);
         setNoResult(false);
-        const fetchedImages = await fetchImagesByName(query.split('/'[1]), page);
+        const fetchedImages = await fetchImagesByName(query.split('/')[1], page);
         setImages(prevImages => [...prevImages, ...fetchedImages]);
         if (fetchedImages.length === 0) {
           setNoResult(true);
@@ -53,27 +51,34 @@ const App = () => {
   }, [query, page]);
 
   const openModal = cardInfo => {
-    console.log(cardInfo);
     setCurrentImgCard(cardInfo);
     setModalIsOpen(true);
   };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const onLoadMore = () => {
+    setPage(page + 1);
+  };
+
   return (
     <div className="mainContainer">
-      <SearchBar onSubmit={imageRequest} />
+      <SearchBar onSubmit={handleSearchSubmit} />
       {error && <ErrorMessage />}
       {noResult && <NoResultError />}
       {images.length > 0 && <ImageGallery items={images} onOpen={openModal} />}
       {loading && <Loader />}
-      {images.length > 0 && !loading && <LoadMoreBtn page={page} setPage={setPage} />}
+      {images.length > 0 && !loading && <LoadMoreBtn onClick={onLoadMore} />}
       {modalIsOpen && (
         <ImageModal
           isOpen={modalIsOpen}
-          image={currentImgCard.src.regular}
-          imageAltDescr={currentImgCard.alt}
+          imageSrc={currentImgCard.src}
+          imageAlt={currentImgCard.alt}
           author={currentImgCard.author}
           likes={currentImgCard.likes}
-          onClose={() => setModalIsOpen(false)}
+          onClose={closeModal}
         />
       )}
       <Toaster />
